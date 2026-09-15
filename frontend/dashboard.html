@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SecureLens AI — Dashboard</title>
+  <link rel="stylesheet" href="css/theme.css"/>
+  <link rel="stylesheet" href="css/layout.css"/>
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- Top Header -->
+    <header class="app-header">
+      <div class="header-left">
+        <img src="assets/logo.svg" alt="SecureLens AI Logo" style="width: 32px; height: 32px;"/>
+        <h2 style="font-size: 18px; font-weight: 700; letter-spacing: -0.5px;">Secure<span style="color: var(--accent-violet);">Lens</span> AI</h2>
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          <span>SYSTEM READY</span>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="user-profile">
+          <div class="avatar-badge" id="user-avatar">OP</div>
+          <span id="user-id-display">operator</span>
+        </div>
+        <button id="btn-export-pdf" class="btn-secondary" style="display: none;">
+          📄 Export PDF Report
+        </button>
+        <button id="btn-logout" class="btn-secondary">
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <!-- Sidebar: Scan History -->
+    <aside class="app-sidebar">
+      <div class="sidebar-header">
+        <span class="sidebar-title">Scan History</span>
+      </div>
+      <div class="history-list" id="history-container">
+        <div style="padding: 20px; text-align: center; color: var(--text-dim); font-size: 13px;">
+          Loading scan history...
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="app-main">
+      
+      <!-- URL Scan Bar -->
+      <section class="scan-bar-card">
+        <input type="text" id="scan-url-input" class="scan-input" placeholder="Enter target URL to audit (e.g. https://example.com)" autocomplete="off"/>
+        <button id="btn-run-scan" class="btn-scan">
+          <span>Run Scan →</span>
+          <span id="scan-spinner" class="spinner" style="display: none;"></span>
+        </button>
+      </section>
+
+      <!-- Overview Grid: Gauge + Severity Counters -->
+      <section class="overview-grid">
+        
+        <!-- Risk Gauge Card -->
+        <div class="gauge-card">
+          <div class="gauge-container">
+            <svg class="gauge-svg" viewBox="0 0 140 140">
+              <circle class="gauge-bg" cx="70" cy="70" r="60"></circle>
+              <circle id="risk-gauge-meter" class="gauge-meter" cx="70" cy="70" r="60"></circle>
+            </svg>
+            <div class="gauge-text">
+              <span id="risk-score-value" class="gauge-score">--</span>
+              <span id="risk-level-label" class="gauge-label">NO SCAN</span>
+            </div>
+          </div>
+          <p style="font-size: 12px; color: var(--text-muted);" id="target-hostname-display">No target loaded</p>
+        </div>
+
+        <!-- Finding Counters Grid -->
+        <div class="stat-counters-grid">
+          <div class="counter-card critical">
+            <span class="counter-header">Critical</span>
+            <span class="counter-value" id="count-critical">0</span>
+          </div>
+          <div class="counter-card high">
+            <span class="counter-header">High</span>
+            <span class="counter-value" id="count-high">0</span>
+          </div>
+          <div class="counter-card medium">
+            <span class="counter-header">Medium</span>
+            <span class="counter-value" id="count-medium">0</span>
+          </div>
+          <div class="counter-card low">
+            <span class="counter-header">Low</span>
+            <span class="counter-value" id="count-low">0</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- AI Executive Assessment Card -->
+      <section id="ai-summary-card" class="table-card" style="display: none; background: radial-gradient(circle at 0% 0%, #1e1b4b 0%, #141727 80%); border-color: var(--accent-violet);">
+        <div class="card-header">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 18px;">⚡</span>
+            <h3 class="card-title" style="color: var(--accent-violet);">Groq AI Security Summary</h3>
+          </div>
+        </div>
+        <p id="ai-summary-text" style="font-size: 13px; color: var(--text-main); line-height: 1.6;"></p>
+      </section>
+
+      <!-- Vulnerability Findings Table -->
+      <section class="table-card">
+        <div class="card-header">
+          <h3 class="card-title">Vulnerability Findings & Posture</h3>
+          <span style="font-size: 12px; color: var(--text-muted);" id="vuln-count-total">0 items</span>
+        </div>
+
+        <table class="vuln-table">
+          <thead>
+            <tr>
+              <th style="width: 120px;">Severity</th>
+              <th style="width: 220px;">Finding Name</th>
+              <th>Affected Asset</th>
+              <th style="width: 100px;">Status</th>
+            </tr>
+          </thead>
+          <tbody id="vuln-table-body">
+            <tr>
+              <td colspan="4" style="text-align: center; color: var(--text-dim); padding: 30px;">
+                Enter a target URL above and click "Run Scan" to initiate audit.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <!-- Right Sidebar: Groq AI Analyst Chatbot -->
+    <aside class="app-chat">
+      <div class="chat-header">
+        <div class="chat-title">
+          <span style="color: var(--accent-violet);">🤖</span>
+          <span>AI Analyst</span>
+        </div>
+        <span style="font-size: 11px; font-family: var(--font-mono); color: var(--accent-violet); background: var(--accent-violet-glow); padding: 2px 8px; border-radius: var(--radius-sm);">Llama 3.1</span>
+      </div>
+
+      <div class="chat-messages" id="chat-messages-container">
+        <div class="chat-bubble ai">
+          Hello Operator. I am your SecureLens AI Security Analyst powered by Groq Llama 3.1. Run a scan or select a past audit to inspect findings and ask remediation questions.
+        </div>
+      </div>
+
+      <form id="chat-form" class="chat-input-area">
+        <input type="text" id="chat-input-text" class="chat-input" placeholder="Ask AI Analyst about findings..." autocomplete="off"/>
+        <button type="submit" id="btn-chat-send" class="btn-chat-send">
+          <span>Send</span>
+        </button>
+      </form>
+    </aside>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/auth.js"></script>
+  <script src="js/vulnerabilities.js"></script>
+  <script src="js/history.js"></script>
+  <script src="js/scan.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

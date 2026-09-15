@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SecureLens AI — Operator Login</title>
+  <link rel="stylesheet" href="css/theme.css"/>
+  <link rel="stylesheet" href="css/layout.css"/>
+</head>
+<body>
+  <div class="login-wrapper">
+    <div class="login-card">
+      <div class="brand-header">
+        <img src="assets/logo.svg" alt="SecureLens AI Logo" class="brand-logo"/>
+        <h1 class="brand-title">Secure<span>Lens</span> AI</h1>
+        <p class="brand-subtitle">Automated Cybersecurity Audit & Risk Intelligence</p>
+      </div>
+
+      <div id="login-alert" class="alert-box alert-error">
+        Invalid Operator ID or Passphrase. Please try again.
+      </div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label class="form-label" for="operator-id">Operator ID</label>
+          <input type="text" id="operator-id" class="form-input" placeholder="e.g. operator" required autocomplete="username"/>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="passphrase">Passphrase</label>
+          <input type="password" id="passphrase" class="form-input" placeholder="••••••••••••" required autocomplete="current-password"/>
+        </div>
+
+        <button type="submit" id="btn-login-submit" class="btn-primary" style="margin-top: 10px;">
+          <span>Authenticate & Access Shell</span>
+          <span id="login-spinner" class="spinner" style="display: none;"></span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+</body>
+</html>
