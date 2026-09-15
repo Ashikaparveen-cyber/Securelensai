@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } catch (err) {
       console.error("Scan execution error:", err);
-      alert("Could not complete scan. Please verify backend server connectivity on http://127.0.0.1:8000.");
+      alert("Could not complete scan. Please verify backend server connectivity on https://securelensai-backend.onrender.com.");
     } finally {
       btnScan.disabled = false;
       spinner.style.display = "none";
