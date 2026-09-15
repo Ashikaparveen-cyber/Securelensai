@@ -1,6 +1,6 @@
 /* ── SecureLens AI Auth Management ── */
 
-const API_BASE = (window.location.protocol === "file:" || !window.location.host) ? "http://127.0.0.1:8000" : "";
+const API_BASE = (window.location.protocol === "file:" || !window.location.host) ? "https://securelensai-backend.onrender.com" : "";
 const TOKEN_KEY = "securelens_token";
 const OPERATOR_KEY = "securelens_operator";
 
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       } catch (err) {
         alertBox.style.display = "block";
-        alertBox.innerText = "Connection failed. Please ensure the backend server is running on http://127.0.0.1:8000.";
+        alertBox.innerText = "Connection failed. Please ensure the backend server is running on https://securelensai-backend.onrender.com.";
       } finally {
         btnSubmit.disabled = false;
         spinner.style.display = "none";
