@@ -1,6 +1,6 @@
 /* ── SecureLens AI Auth Management ── */
 
-const API_BASE = (window.location.protocol === "file:" || !window.location.host) ? "https://securelensai-backend.onrender.com" : "";
+const API_BASE = "https://securelensai-backend.onrender.com";
 const TOKEN_KEY = "securelens_token";
 const OPERATOR_KEY = "securelens_operator";
 
