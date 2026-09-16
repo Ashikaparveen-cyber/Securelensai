@@ -9,7 +9,7 @@ import httpx
 from typing import List, Dict, Any
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "").strip()
-DEFAULT_MODEL = "llama-3.1-8b-instant"  # or llama-3.3-70b-versatile / llama3-8b-8192
+DEFAULT_MODEL = "openai/gpt-oss-20b"  # Groq's recommended replacement for llama-3.1-8b-instant
 GROQ_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions"
 
 
